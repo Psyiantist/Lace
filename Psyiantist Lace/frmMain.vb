@@ -3,7 +3,6 @@ Imports System.Net.NetworkInformation
 Imports System.Text
 Imports System.Text.Json
 Imports System.Threading
-Imports System.Drawing
 Imports System.Drawing.Imaging
 
 Public Class frmMain
@@ -143,9 +142,8 @@ Public Class frmMain
                 Return 0
             End If
         Catch ex As Exception
+            Label12.Text = "Pinging Error: " & ex.Message
             pnlWait.Show()
-            txtboxMsg.Enabled = False
-            btnSend.Enabled = False
             Return 0
         End Try
     End Function
