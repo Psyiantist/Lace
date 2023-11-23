@@ -38,4 +38,4 @@ Contributions to Lace are welcome! If you have ideas for improvement, bug report
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.txt).
+This project is licensed under the [The Unlicensed](LICENSE.txt).
