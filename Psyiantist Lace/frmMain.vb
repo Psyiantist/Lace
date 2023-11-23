@@ -84,6 +84,25 @@ Public Class frmMain
         End Try
     End Function
 
+    Public Function ProcessListViewToJson(listView As ListView) As String
+        Dim jsonObj As New StringBuilder()
+
+        jsonObj.Append("[")
+
+        For Each item As ListViewItem In listView.Items
+            Dim column1Content As String = item.SubItems(0).Text
+            Dim column2Content As String = item.SubItems(1).Text
+
+            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content & """}, ")
+            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content & """}, ")
+        Next
+
+        jsonObj.Append("{""role"": ""user"", ""content"":  """ & txtboxMsg.Text & """}]")
+
+        Clipboard.SetText(jsonObj.ToString())
+        Return jsonObj.ToString()
+    End Function
+
     Private Async Function PostRequestAsync(ByVal url As String, ByVal jsonData As String, token As CancellationToken) As Task(Of String)
         Using client As New HttpClient()
             Dim content As New StringContent(jsonData, Encoding.UTF8, "application/json")
@@ -101,7 +120,6 @@ Public Class frmMain
             Return responseContent
         End Using
     End Function
-
 
     Private Async Function CheckPing(ByVal websiteUrl As String) As Task(Of Long)
         Try
@@ -163,9 +181,9 @@ Public Class frmMain
 
         Try
             If cmbTypeAni.Text = "Enabled" Then
-                Await AnimateText(Await PostRequestAsync(url, "{""user"":  """ & txtboxMsg.Text & """}", cts.Token), txtboxResp, cts.Token)
+                Await AnimateText(Await PostRequestAsync(url, ProcessListViewToJson(lvHistory), cts.Token), txtboxResp, cts.Token)
             Else
-                txtboxResp.Text = Await PostRequestAsync(url, "{""user"":  """ & txtboxMsg.Text & """}", cts.Token)
+                txtboxResp.Text = Await PostRequestAsync(url, ProcessListViewToJson(lvHistory), cts.Token)
             End If
 
             newItem.SubItems.Add(txtboxResp.Text)
