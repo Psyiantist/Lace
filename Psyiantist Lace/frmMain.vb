@@ -4,8 +4,18 @@ Imports System.Text
 Imports System.Text.Json
 Imports System.Threading
 Imports System.Drawing.Imaging
+Imports System.Xml
+Imports System.IO
 
 Public Class frmMain
+
+    Public Class Chat
+        Public Property ID As String
+        Public Property ChatDate As String
+        Public Property Title As String
+    End Class
+
+    Public selectedChat As Chat
     Public streamline As Boolean = False
     Public onProcess As Boolean = False
     Public MoveForm As Boolean
@@ -84,6 +94,215 @@ Public Class frmMain
         End Try
     End Function
 
+    Private Sub NewChat()
+        txtboxResp.Clear()
+        lblTitle.Text = "New Chat"
+        lvHistory.Items.Clear()
+
+
+
+        Dim currentDirectory As String = Environment.CurrentDirectory
+        Dim filePath As String = Path.Combine(currentDirectory, "chats.xml")
+        Dim xmlDoc As New XmlDocument()
+
+        If Not System.IO.File.Exists(filePath) Then
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+            Dim rootElement As XmlElement = xmlDoc.CreateElement("Chats")
+            xmlDoc.AppendChild(rootElement)
+        Else
+            xmlDoc.Load(filePath)
+        End If
+
+        Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
+        If chatsElement Is Nothing Then
+            chatsElement = xmlDoc.CreateElement("Chats")
+            xmlDoc.AppendChild(chatsElement)
+        End If
+
+        Dim newChatElement As XmlElement = xmlDoc.CreateElement("Chat")
+        chatsElement.AppendChild(newChatElement)
+
+        Dim idAttribute As XmlAttribute = xmlDoc.CreateAttribute("ID")
+        idAttribute.Value = Guid.NewGuid().ToString()
+        newChatElement.Attributes.Append(idAttribute)
+
+        Dim titleAttribute As XmlAttribute = xmlDoc.CreateAttribute("Title")
+        titleAttribute.Value = "New Chat"
+        newChatElement.Attributes.Append(titleAttribute)
+
+        Dim dateAttribute As XmlAttribute = xmlDoc.CreateAttribute("Date")
+        dateAttribute.Value = DateTime.Now.ToString()
+        newChatElement.Attributes.Append(dateAttribute)
+
+        Dim messagesElement As XmlElement = xmlDoc.CreateElement("Messages")
+        newChatElement.AppendChild(messagesElement)
+
+        xmlDoc.Save(filePath)
+        loadChats()
+
+        selectedChat = New Chat With {
+            .ID = idAttribute.Value,
+            .ChatDate = dateAttribute.Value,
+            .Title = titleAttribute.Value
+        }
+    End Sub
+
+
+    Private Sub SaveMessages()
+        Dim currentDirectory As String = Environment.CurrentDirectory
+        Dim filePath As String = Path.Combine(currentDirectory, "chats.xml")
+        Dim xmlDoc As New XmlDocument()
+
+        If Not System.IO.File.Exists(filePath) Then
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+            Dim rootElement As XmlElement = xmlDoc.CreateElement("Chats")
+            xmlDoc.AppendChild(rootElement)
+        Else
+            xmlDoc.Load(filePath)
+        End If
+
+        Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
+        If chatsElement Is Nothing Then
+            MessageBox.Show("Invalid XML structure. Unable to save messages.")
+            Return
+        End If
+
+        Dim chatId As String = selectedChat.ID
+        Dim chatElement As XmlElement = chatsElement.SelectSingleNode($"Chat[@ID='{chatId}']")
+
+        If chatElement IsNot Nothing Then
+            Dim messagesElement As XmlElement = chatElement.SelectSingleNode("Messages")
+
+            If messagesElement Is Nothing Then
+                messagesElement = xmlDoc.CreateElement("Messages")
+                chatElement.AppendChild(messagesElement)
+            End If
+
+            For Each item As ListViewItem In lvHistory.Items
+                Dim role As String
+                Dim content As String
+
+                If Not String.IsNullOrEmpty(item.SubItems(0).Text) Then
+                    role = "user"
+                    content = item.SubItems(0).Text
+                Else
+                    role = "assistant"
+                    content = item.SubItems(1).Text
+                End If
+
+                Dim messageElement As XmlElement = xmlDoc.CreateElement("Message")
+
+                Dim roleAttribute As XmlAttribute = xmlDoc.CreateAttribute("role")
+                roleAttribute.Value = role
+                messageElement.Attributes.Append(roleAttribute)
+
+                Dim contentAttribute As XmlAttribute = xmlDoc.CreateAttribute("content")
+                contentAttribute.Value = content
+                messageElement.Attributes.Append(contentAttribute)
+
+                messagesElement.AppendChild(messageElement)
+            Next
+        Else
+            MessageBox.Show($"Chat with ID '{chatId}' not found. Unable to save messages.")
+        End If
+
+        xmlDoc.Save(filePath)
+    End Sub
+
+
+
+
+
+
+    Private Sub loadMessages()
+        Dim currentDirectory As String = Environment.CurrentDirectory
+        Dim filePath As String = Path.Combine(currentDirectory, "chats.xml")
+        Dim xmlDoc As New XmlDocument()
+
+        If Not System.IO.File.Exists(filePath) Then
+            MessageBox.Show("No messages found for the selected chat.")
+            Return
+        Else
+            xmlDoc.Load(filePath)
+        End If
+
+        Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
+        If chatsElement Is Nothing Then
+            MessageBox.Show("Invalid XML structure. Unable to load messages.")
+            Return
+        End If
+
+        Dim chatId As String = selectedChat.ID
+        Dim chatElement As XmlElement = chatsElement.SelectSingleNode($"Chat[@ID='{chatId}']")
+
+        If chatElement IsNot Nothing Then
+            lvHistory.Items.Clear()
+
+            Dim messagesElement As XmlElement = chatElement.SelectSingleNode("Messages")
+
+            If messagesElement IsNot Nothing Then
+                For Each messageElement As XmlElement In messagesElement.SelectNodes("Message")
+                    Dim role As String = messageElement.GetAttribute("role")
+                    Dim content As String = messageElement.GetAttribute("content")
+
+                    Dim item As New ListViewItem(If(role = "user", content, ""))
+                    item.SubItems.Add(If(role <> "user", content, ""))
+
+                    lvHistory.Items.Add(item)
+                Next
+            Else
+                MessageBox.Show("No messages found for the selected chat.")
+            End If
+        Else
+            MessageBox.Show($"Chat with ID '{chatId}' not found. Unable to load messages.")
+        End If
+    End Sub
+
+
+    Private Sub loadChats()
+        lvChats.Items.Clear()
+        Dim currentDirectory As String = Environment.CurrentDirectory
+        Dim filePath As String = Path.Combine(currentDirectory, "chats.xml")
+        Dim xmlDoc As New XmlDocument()
+
+        If System.IO.File.Exists(filePath) Then
+            xmlDoc.Load(filePath)
+
+            Dim rootElement As XmlElement = xmlDoc.DocumentElement
+
+            If rootElement IsNot Nothing AndAlso rootElement.Name = "Chats" Then
+
+                For Each chatElement As XmlElement In rootElement.SelectNodes("Chat")
+                    Dim idAttribute As XmlAttribute = chatElement.Attributes("ID")
+                    Dim dateAttribute As XmlAttribute = chatElement.Attributes("Date")
+                    Dim titleAttribute As XmlAttribute = chatElement.Attributes("Title")
+
+                    Dim item As New ListViewItem(idAttribute.Value)
+                    item.SubItems.Add(dateAttribute.Value)
+                    item.SubItems.Add(titleAttribute.Value)
+
+                    lvChats.Items.Add(item)
+                Next
+            Else
+                System.IO.File.Delete(filePath)
+                xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+                xmlDoc.AppendChild(xmlDoc.CreateElement("Chats"))
+
+                xmlDoc.Save(filePath)
+            End If
+        Else
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+
+            Dim rootElement As XmlElement = xmlDoc.CreateElement("Chats")
+            xmlDoc.AppendChild(rootElement)
+
+            xmlDoc.Save(filePath)
+        End If
+    End Sub
+
+
+
+
     Public Function ProcessListViewToJson(listView As ListView) As String
         Dim jsonObj As New StringBuilder()
 
@@ -99,8 +318,8 @@ Public Class frmMain
 
         jsonObj.Append("{""role"": ""user"", ""content"":  """ & txtboxMsg.Text & """}]")
 
-        Clipboard.SetText(jsonObj.ToString())
-        Return jsonObj.ToString()
+        Dim cleanedString As String = jsonObj.ToString.Replace(vbCrLf, "").Replace(vbCr, "").Replace(vbLf, "")
+        Return cleanedString
     End Function
 
     Private Async Function PostRequestAsync(ByVal url As String, ByVal jsonData As String, token As CancellationToken) As Task(Of String)
@@ -160,7 +379,7 @@ Public Class frmMain
                 Return 0
             End If
         Catch ex As Exception
-            Label12.Text = "Pinging Error: " & ex.Message
+            Label12.Text = "Cannot Ping."
             pnlWait.Show()
             Return 0
         End Try
@@ -168,17 +387,27 @@ Public Class frmMain
 
 
     Private Async Sub sendMessage()
+
+        If lvHistory.Items.Count = 0 Then
+            NewChat()
+        End If
+
         onProcess = True
         barProgress.Value = 0
+
+        Panel4.Enabled = False
         txtboxMsg.Enabled = False
         btnSend.Enabled = False
+        pnlSettings.Enabled = False
+
         btnCancel.Show()
         txtboxResp.Clear()
-        pnlSettings.Enabled = False
         cts = New CancellationTokenSource()
         Dim newItem As New ListViewItem(txtboxMsg.Text)
-        lblLoading.Show()
+        newItem.SubItems.Add("")
+        lvHistory.Items.Add(newItem)
 
+        lblLoading.Show()
         Try
             If cmbTypeAni.Text = "Enabled" Then
                 Await AnimateText(Await PostRequestAsync(url, ProcessListViewToJson(lvHistory), cts.Token), txtboxResp, cts.Token)
@@ -186,16 +415,47 @@ Public Class frmMain
                 txtboxResp.Text = Await PostRequestAsync(url, ProcessListViewToJson(lvHistory), cts.Token)
             End If
 
-            newItem.SubItems.Add(txtboxResp.Text)
-            lvHistory.Items.Add(newItem)
+            Dim newItem2 As New ListViewItem("")
+            newItem2.SubItems.Add(txtboxResp.Text)
+            lvHistory.Items.Add(newItem2)
+
         Catch ex As OperationCanceledException
             txtboxResp.Text = "Generation Cancelled."
         End Try
 
-        btnCancel.Hide()
+        Panel4.Enabled = True
         pnlSettings.Enabled = True
         txtboxMsg.Clear()
+        btnCancel.Hide()
+        SaveMessages()
+        AskTitle()
+
         onProcess = False
+    End Sub
+
+    Private Async Sub AskTitle()
+
+        If lvHistory.Items.Count <> 2 Then
+            Exit Sub
+        End If
+
+        Dim jsonObj As New StringBuilder()
+
+        jsonObj.Append("[")
+
+        For Each item As ListViewItem In lvHistory.Items
+            Dim column1Content As String = item.SubItems(0).Text.Trim
+            Dim column2Content As String = item.SubItems(1).Text.Trim
+
+            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content & """}, ")
+            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content & """}, ")
+        Next
+
+        jsonObj.Append("{""role"": ""user"", ""content"":  ""give a 3 word title for the conversation.""}]")
+        Dim cleanedString As String = jsonObj.ToString.Replace(vbCrLf, "").Replace(vbCr, "").Replace(vbLf, "")
+        lblTitle.Text = Await PostRequestAsync(url, cleanedString, cts.Token)
+
+        UpdateChatTitle(selectedChat.ID, lblTitle.Text)
     End Sub
 
     Private Async Sub pinger_Tick(sender As Object, e As EventArgs) Handles pinger.Tick
@@ -222,6 +482,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        loadChats()
         AdjustBrightness(PictureBox1.Image, 10.0)
 
         lblModelName.Text = "LLaMa-2-70B-chat"
@@ -303,7 +564,7 @@ Public Class frmMain
     End Sub
 
     Private Sub lvHistory_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvHistory.SelectedIndexChanged
-        If lvHistory.SelectedItems.Count > 0 Then
+        If lvHistory.SelectedItems.Count > 0 And onProcess <> True Then
             Dim selectedItem As ListViewItem = lvHistory.SelectedItems(0)
 
             Dim firstColumnContent As String = selectedItem.SubItems(0).Text
@@ -346,9 +607,9 @@ Public Class frmMain
     End Sub
 
     Private Sub btnShowExtra_Click(sender As Object, e As EventArgs) Handles btnShowExtra.Click
-        Me.Size = New Size(If(Me.Size.Width = 800, 1050, 800), Me.Size.Height)
+        Me.Size = New Size(If(Me.Size.Width = 1055, 1305, 1055), Me.Size.Height)
 
-        If Me.Size.Width = 1050 Then
+        If Me.Size.Width = 1305 Then
             btnShowExtra.BackColor = pnlExtra.BackColor
             btnShowExtra.ForeColor = Color.White
         Else
@@ -366,6 +627,7 @@ Public Class frmMain
             txtboxMsg.BackColor = darkerColor
             txtboxResp.BackColor = darkerColor
             Dim lighterColor As Color = ControlPaint.Light(darkerColor)
+            Panel4.BackColor = lighterColor
             pnlExtra.BackColor = lighterColor
             btnShowExtra.BackColor = lighterColor
         End If
@@ -449,4 +711,65 @@ Public Class frmMain
     Private Sub scrollAbout_Scroll(sender As Object, e As ScrollEventArgs) Handles scrollAbout.Scroll
         pnlScrollableAbout.Location = New Point(pnlScrollableAbout.Location.X, 4 - scrollAbout.Value)
     End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        lblTitle.Text = "New Chat"
+        txtboxMsg.Clear()
+        txtboxResp.Clear()
+        lvHistory.Items.Clear()
+        selectedChat = New Chat With {
+            .ID = Nothing,
+            .ChatDate = Nothing,
+            .Title = Nothing
+        }
+    End Sub
+
+    Private Sub lvChats_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvChats.SelectedIndexChanged
+        If lvChats.SelectedItems.Count > 0 Then
+            Dim selectedItem As ListViewItem = lvChats.SelectedItems(0)
+
+            Dim chatID As String = selectedItem.SubItems(0).Text
+            Dim chatDate As String = selectedItem.SubItems(1).Text
+            Dim chatTitle As String = selectedItem.SubItems(2).Text
+
+            selectedChat = New Chat With {
+            .ID = chatID,
+            .ChatDate = chatDate,
+            .Title = chatTitle
+        }
+
+            lblTitle.Text = selectedChat.Title
+            loadMessages()
+        End If
+    End Sub
+
+    Private Sub UpdateChatTitle(chatId As String, newTitle As String)
+        Dim currentDirectory As String = Environment.CurrentDirectory
+        Dim filePath As String = Path.Combine(currentDirectory, "chats.xml")
+        Dim xmlDoc As New XmlDocument()
+
+        If Not System.IO.File.Exists(filePath) Then
+            Return
+        Else
+            xmlDoc.Load(filePath)
+        End If
+
+        Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
+        If chatsElement Is Nothing Then
+            Return
+        End If
+
+        Dim chatElement As XmlElement = chatsElement.SelectSingleNode($"Chat[@ID='{chatId}']")
+
+        If chatElement IsNot Nothing Then
+            Dim titleAttribute As XmlAttribute = chatElement.Attributes("Title")
+
+            If titleAttribute IsNot Nothing Then
+                titleAttribute.Value = newTitle
+                xmlDoc.Save(filePath)
+            End If
+        End If
+        loadChats()
+    End Sub
+
 End Class

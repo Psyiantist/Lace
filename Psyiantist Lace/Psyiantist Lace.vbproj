@@ -4,11 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Psyiantist_Lace</RootNamespace>
-    <StartupObject>Sub Main</StartupObject>
+    <StartupObject>Psyiantist_Lace.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
     <ApplicationIcon>clrico (1).ico</ApplicationIcon>
+    <UseWPF>False</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="chats.mdf" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="clrico (1).ico" />

@@ -57,26 +57,6 @@ Partial Class frmMain
         Label5 = New Label()
         lblPing = New Label()
         pinger = New Timer(components)
-        pnlSettings = New Panel()
-        lblOpac = New Label()
-        trackbarOpacity = New TrackBar()
-        Label13 = New Label()
-        cmbShowP = New ComboBox()
-        cmbTypeAni = New ComboBox()
-        cmbModel = New ComboBox()
-        Label8 = New Label()
-        Label7 = New Label()
-        Label6 = New Label()
-        pnlAbout = New Panel()
-        scrollAbout = New VScrollBar()
-        pnlScrollableAbout = New Panel()
-        PictureBox2 = New PictureBox()
-        LinkLabel1 = New LinkLabel()
-        Label18 = New Label()
-        Label9 = New Label()
-        Label15 = New Label()
-        Label10 = New Label()
-        Label11 = New Label()
         Label14 = New Label()
         pnlWait = New Panel()
         Label12 = New Label()
@@ -93,18 +73,47 @@ Partial Class frmMain
         Label17 = New Label()
         cldBackC = New ColorDialog()
         FontDialog1 = New FontDialog()
+        Panel4 = New Panel()
+        Button4 = New Button()
+        lvChats = New ListView()
+        ColumnHeader4 = New ColumnHeader()
+        ColumnHeader5 = New ColumnHeader()
+        ColumnHeader6 = New ColumnHeader()
+        Label22 = New Label()
+        lblTitle = New Label()
+        Label6 = New Label()
+        Label7 = New Label()
+        Label8 = New Label()
+        cmbModel = New ComboBox()
+        cmbTypeAni = New ComboBox()
+        cmbShowP = New ComboBox()
+        Label13 = New Label()
+        trackbarOpacity = New TrackBar()
+        lblOpac = New Label()
+        pnlSettings = New Panel()
+        pnlScrollableAbout = New Panel()
+        PictureBox2 = New PictureBox()
+        LinkLabel1 = New LinkLabel()
+        Label18 = New Label()
+        Label9 = New Label()
+        Label15 = New Label()
+        Label10 = New Label()
+        Label11 = New Label()
+        scrollAbout = New VScrollBar()
+        pnlAbout = New Panel()
         Panel1.SuspendLayout()
         CType(PictureBox1, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         Panel2.SuspendLayout()
         Panel3.SuspendLayout()
-        pnlSettings.SuspendLayout()
-        CType(trackbarOpacity, ComponentModel.ISupportInitialize).BeginInit()
-        pnlAbout.SuspendLayout()
-        pnlScrollableAbout.SuspendLayout()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
         pnlWait.SuspendLayout()
         pnlExtra.SuspendLayout()
+        Panel4.SuspendLayout()
+        CType(trackbarOpacity, ComponentModel.ISupportInitialize).BeginInit()
+        pnlSettings.SuspendLayout()
+        pnlScrollableAbout.SuspendLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).BeginInit()
+        pnlAbout.SuspendLayout()
         SuspendLayout()
         ' 
         ' Panel1
@@ -115,9 +124,9 @@ Partial Class frmMain
         Panel1.Controls.Add(Button2)
         Panel1.Controls.Add(Button1)
         Panel1.Controls.Add(PictureBox1)
-        Panel1.Location = New Point(-7, -3)
+        Panel1.Location = New Point(252, -3)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(811, 35)
+        Panel1.Size = New Size(801, 35)
         Panel1.TabIndex = 0
         ' 
         ' btnShowExtra
@@ -126,7 +135,7 @@ Partial Class frmMain
         btnShowExtra.FlatStyle = FlatStyle.Flat
         btnShowExtra.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         btnShowExtra.ForeColor = Color.LightGray
-        btnShowExtra.Location = New Point(789, 0)
+        btnShowExtra.Location = New Point(785, 0)
         btnShowExtra.Name = "btnShowExtra"
         btnShowExtra.Size = New Size(18, 36)
         btnShowExtra.TabIndex = 5
@@ -163,7 +172,7 @@ Partial Class frmMain
         Button2.FlatStyle = FlatStyle.Flat
         Button2.Font = New Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point)
         Button2.ForeColor = Color.LightGray
-        Button2.Location = New Point(677, -19)
+        Button2.Location = New Point(673, -19)
         Button2.Name = "Button2"
         Button2.Size = New Size(56, 55)
         Button2.TabIndex = 2
@@ -176,7 +185,7 @@ Partial Class frmMain
         Button1.FlatStyle = FlatStyle.Flat
         Button1.Font = New Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point)
         Button1.ForeColor = Color.LightGray
-        Button1.Location = New Point(733, 3)
+        Button1.Location = New Point(729, 3)
         Button1.Name = "Button1"
         Button1.Size = New Size(56, 32)
         Button1.TabIndex = 1
@@ -201,22 +210,22 @@ Partial Class frmMain
         lvHistory.ForeColor = Color.White
         lvHistory.FullRowSelect = True
         lvHistory.HeaderStyle = ColumnHeaderStyle.Nonclickable
-        lvHistory.Location = New Point(12, 46)
+        lvHistory.Location = New Point(264, 82)
         lvHistory.MultiSelect = False
         lvHistory.Name = "lvHistory"
-        lvHistory.Size = New Size(302, 392)
+        lvHistory.Size = New Size(306, 356)
         lvHistory.TabIndex = 1
         lvHistory.UseCompatibleStateImageBehavior = False
         lvHistory.View = View.Details
         ' 
         ' prompthistory
         ' 
-        prompthistory.Text = "Prompt History"
+        prompthistory.Text = "User"
         prompthistory.Width = 150
         ' 
         ' responsehistory
         ' 
-        responsehistory.Text = "Response History"
+        responsehistory.Text = "Assistant"
         responsehistory.Width = 150
         ' 
         ' GroupBox1
@@ -231,7 +240,7 @@ Partial Class frmMain
         GroupBox1.Controls.Add(Label1)
         GroupBox1.FlatStyle = FlatStyle.Flat
         GroupBox1.ForeColor = Color.White
-        GroupBox1.Location = New Point(322, 38)
+        GroupBox1.Location = New Point(578, 38)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(466, 90)
         GroupBox1.TabIndex = 2
@@ -320,7 +329,7 @@ Partial Class frmMain
         Panel2.Controls.Add(Label16)
         Panel2.Controls.Add(txtboxResp)
         Panel2.ForeColor = Color.White
-        Panel2.Location = New Point(321, 136)
+        Panel2.Location = New Point(577, 136)
         Panel2.Name = "Panel2"
         Panel2.Size = New Size(467, 266)
         Panel2.TabIndex = 3
@@ -397,7 +406,7 @@ Partial Class frmMain
         Panel3.Controls.Add(btnCancel)
         Panel3.Controls.Add(btnSend)
         Panel3.Controls.Add(txtboxMsg)
-        Panel3.Location = New Point(321, 408)
+        Panel3.Location = New Point(577, 408)
         Panel3.Name = "Panel3"
         Panel3.Size = New Size(467, 30)
         Panel3.TabIndex = 4
@@ -443,7 +452,7 @@ Partial Class frmMain
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(12, 444)
+        Label5.Location = New Point(263, 444)
         Label5.Name = "Label5"
         Label5.Size = New Size(34, 15)
         Label5.TabIndex = 5
@@ -452,7 +461,7 @@ Partial Class frmMain
         ' lblPing
         ' 
         lblPing.AutoSize = True
-        lblPing.Location = New Point(47, 444)
+        lblPing.Location = New Point(303, 444)
         lblPing.Name = "lblPing"
         lblPing.Size = New Size(0, 15)
         lblPing.TabIndex = 6
@@ -462,228 +471,10 @@ Partial Class frmMain
         pinger.Enabled = True
         pinger.Interval = 1000
         ' 
-        ' pnlSettings
-        ' 
-        pnlSettings.BorderStyle = BorderStyle.Fixed3D
-        pnlSettings.Controls.Add(lblOpac)
-        pnlSettings.Controls.Add(trackbarOpacity)
-        pnlSettings.Controls.Add(Label13)
-        pnlSettings.Controls.Add(cmbShowP)
-        pnlSettings.Controls.Add(cmbTypeAni)
-        pnlSettings.Controls.Add(cmbModel)
-        pnlSettings.Controls.Add(Label8)
-        pnlSettings.Controls.Add(Label7)
-        pnlSettings.Controls.Add(Label6)
-        pnlSettings.Location = New Point(34, 27)
-        pnlSettings.Name = "pnlSettings"
-        pnlSettings.Size = New Size(350, 204)
-        pnlSettings.TabIndex = 7
-        pnlSettings.Visible = False
-        ' 
-        ' lblOpac
-        ' 
-        lblOpac.AutoSize = True
-        lblOpac.Location = New Point(283, 152)
-        lblOpac.Name = "lblOpac"
-        lblOpac.Size = New Size(35, 15)
-        lblOpac.TabIndex = 9
-        lblOpac.Text = "100%"
-        lblOpac.TextAlign = ContentAlignment.TopRight
-        ' 
-        ' trackbarOpacity
-        ' 
-        trackbarOpacity.LargeChange = 10
-        trackbarOpacity.Location = New Point(130, 139)
-        trackbarOpacity.Maximum = 100
-        trackbarOpacity.Minimum = 30
-        trackbarOpacity.Name = "trackbarOpacity"
-        trackbarOpacity.Size = New Size(154, 45)
-        trackbarOpacity.TabIndex = 7
-        trackbarOpacity.TickStyle = TickStyle.Both
-        trackbarOpacity.Value = 100
-        ' 
-        ' Label13
-        ' 
-        Label13.AutoSize = True
-        Label13.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label13.Location = New Point(26, 152)
-        Label13.Name = "Label13"
-        Label13.Size = New Size(98, 15)
-        Label13.TabIndex = 6
-        Label13.Text = "Window Opacity"
-        ' 
-        ' cmbShowP
-        ' 
-        cmbShowP.DropDownStyle = ComboBoxStyle.DropDownList
-        cmbShowP.FlatStyle = FlatStyle.Flat
-        cmbShowP.FormattingEnabled = True
-        cmbShowP.Items.AddRange(New Object() {"Enabled", "Disabled"})
-        cmbShowP.Location = New Point(139, 104)
-        cmbShowP.Name = "cmbShowP"
-        cmbShowP.Size = New Size(179, 23)
-        cmbShowP.TabIndex = 5
-        ' 
-        ' cmbTypeAni
-        ' 
-        cmbTypeAni.DropDownStyle = ComboBoxStyle.DropDownList
-        cmbTypeAni.FlatStyle = FlatStyle.Flat
-        cmbTypeAni.FormattingEnabled = True
-        cmbTypeAni.Items.AddRange(New Object() {"Enabled", "Disabled"})
-        cmbTypeAni.Location = New Point(139, 64)
-        cmbTypeAni.Name = "cmbTypeAni"
-        cmbTypeAni.Size = New Size(179, 23)
-        cmbTypeAni.TabIndex = 4
-        ' 
-        ' cmbModel
-        ' 
-        cmbModel.DropDownStyle = ComboBoxStyle.DropDownList
-        cmbModel.FlatStyle = FlatStyle.Flat
-        cmbModel.FormattingEnabled = True
-        cmbModel.Items.AddRange(New Object() {"LLaMa-2-70B-chat", "LLaMa-13B", "LLaMa-2-7B"})
-        cmbModel.Location = New Point(139, 24)
-        cmbModel.Name = "cmbModel"
-        cmbModel.Size = New Size(179, 23)
-        cmbModel.TabIndex = 3
-        ' 
-        ' Label8
-        ' 
-        Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label8.Location = New Point(26, 107)
-        Label8.Name = "Label8"
-        Label8.Size = New Size(65, 15)
-        Label8.TabIndex = 2
-        Label8.Text = "Show ping"
-        ' 
-        ' Label7
-        ' 
-        Label7.AutoSize = True
-        Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label7.Location = New Point(26, 67)
-        Label7.Name = "Label7"
-        Label7.Size = New Size(101, 15)
-        Label7.TabIndex = 1
-        Label7.Text = "Typing animation"
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label6.Location = New Point(26, 27)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(42, 15)
-        Label6.TabIndex = 0
-        Label6.Text = "Model"
-        ' 
-        ' pnlAbout
-        ' 
-        pnlAbout.BorderStyle = BorderStyle.Fixed3D
-        pnlAbout.Controls.Add(scrollAbout)
-        pnlAbout.Controls.Add(pnlScrollableAbout)
-        pnlAbout.Location = New Point(93, 27)
-        pnlAbout.Name = "pnlAbout"
-        pnlAbout.Size = New Size(362, 217)
-        pnlAbout.TabIndex = 8
-        pnlAbout.Visible = False
-        ' 
-        ' scrollAbout
-        ' 
-        scrollAbout.Dock = DockStyle.Right
-        scrollAbout.Location = New Point(341, 0)
-        scrollAbout.Maximum = 200
-        scrollAbout.Minimum = 2
-        scrollAbout.Name = "scrollAbout"
-        scrollAbout.Size = New Size(17, 213)
-        scrollAbout.TabIndex = 4
-        scrollAbout.Value = 2
-        ' 
-        ' pnlScrollableAbout
-        ' 
-        pnlScrollableAbout.Controls.Add(PictureBox2)
-        pnlScrollableAbout.Controls.Add(LinkLabel1)
-        pnlScrollableAbout.Controls.Add(Label18)
-        pnlScrollableAbout.Controls.Add(Label9)
-        pnlScrollableAbout.Controls.Add(Label15)
-        pnlScrollableAbout.Controls.Add(Label10)
-        pnlScrollableAbout.Controls.Add(Label11)
-        pnlScrollableAbout.Location = New Point(3, 2)
-        pnlScrollableAbout.Name = "pnlScrollableAbout"
-        pnlScrollableAbout.Size = New Size(335, 399)
-        pnlScrollableAbout.TabIndex = 16
-        ' 
-        ' PictureBox2
-        ' 
-        PictureBox2.Image = My.Resources.Resources.clrico
-        PictureBox2.Location = New Point(306, 369)
-        PictureBox2.Name = "PictureBox2"
-        PictureBox2.Size = New Size(25, 25)
-        PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
-        PictureBox2.TabIndex = 6
-        PictureBox2.TabStop = False
-        ' 
-        ' LinkLabel1
-        ' 
-        LinkLabel1.AutoSize = True
-        LinkLabel1.LinkColor = Color.White
-        LinkLabel1.Location = New Point(11, 358)
-        LinkLabel1.Name = "LinkLabel1"
-        LinkLabel1.Size = New Size(130, 30)
-        LinkLabel1.TabIndex = 5
-        LinkLabel1.TabStop = True
-        LinkLabel1.Text = "github.com/Psyiantist" & vbCrLf & "replit.com/@MattFawn"
-        ' 
-        ' Label18
-        ' 
-        Label18.AutoSize = True
-        Label18.Location = New Point(9, 227)
-        Label18.Name = "Label18"
-        Label18.Size = New Size(301, 45)
-        Label18.TabIndex = 4
-        Label18.Text = "Created with Microsoft Visual Studio 2022. Any forms of" & vbCrLf & "Illegal Copyright or Distribution of this product will" & vbCrLf & "violate the license. The Unlicensed. (2023)"
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label9.Location = New Point(12, 13)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(77, 15)
-        Label9.TabIndex = 0
-        Label9.Text = "App Creator:"
-        ' 
-        ' Label15
-        ' 
-        Label15.AutoSize = True
-        Label15.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
-        Label15.Location = New Point(8, 180)
-        Label15.Name = "Label15"
-        Label15.Size = New Size(236, 15)
-        Label15.TabIndex = 3
-        Label15.Text = "Large Artificial Cognitive Ensemble (Lace)"
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Location = New Point(95, 13)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(154, 15)
-        Label10.TabIndex = 1
-        Label10.Text = " Matt Castaneda (Psyiantist)"
-        ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(8, 71)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(322, 90)
-        Label11.TabIndex = 2
-        Label11.Text = resources.GetString("Label11.Text")
-        Label11.TextAlign = ContentAlignment.MiddleLeft
-        ' 
         ' Label14
         ' 
         Label14.AutoSize = True
-        Label14.Location = New Point(677, 444)
+        Label14.Location = New Point(933, 444)
         Label14.Name = "Label14"
         Label14.Size = New Size(111, 15)
         Label14.TabIndex = 12
@@ -692,7 +483,7 @@ Partial Class frmMain
         ' pnlWait
         ' 
         pnlWait.Controls.Add(Label12)
-        pnlWait.Location = New Point(289, 440)
+        pnlWait.Location = New Point(545, 440)
         pnlWait.Name = "pnlWait"
         pnlWait.Size = New Size(222, 23)
         pnlWait.TabIndex = 14
@@ -722,7 +513,7 @@ Partial Class frmMain
         pnlExtra.Controls.Add(lblTC)
         pnlExtra.Controls.Add(lblBC)
         pnlExtra.Controls.Add(Label17)
-        pnlExtra.Location = New Point(800, -3)
+        pnlExtra.Location = New Point(1053, -3)
         pnlExtra.Name = "pnlExtra"
         pnlExtra.Size = New Size(253, 474)
         pnlExtra.TabIndex = 15
@@ -848,12 +639,302 @@ Partial Class frmMain
         FontDialog1.ShowEffects = False
         FontDialog1.ShowHelp = True
         ' 
+        ' Panel4
+        ' 
+        Panel4.BackColor = Color.FromArgb(CByte(35), CByte(35), CByte(35))
+        Panel4.Controls.Add(Button4)
+        Panel4.Controls.Add(lvChats)
+        Panel4.Controls.Add(Label22)
+        Panel4.Location = New Point(-7, 0)
+        Panel4.Name = "Panel4"
+        Panel4.Size = New Size(260, 471)
+        Panel4.TabIndex = 16
+        ' 
+        ' Button4
+        ' 
+        Button4.FlatStyle = FlatStyle.Flat
+        Button4.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Button4.Location = New Point(20, 424)
+        Button4.Name = "Button4"
+        Button4.Size = New Size(227, 30)
+        Button4.TabIndex = 17
+        Button4.Text = "✎ New Chat"
+        Button4.UseVisualStyleBackColor = True
+        ' 
+        ' lvChats
+        ' 
+        lvChats.BackColor = Color.FromArgb(CByte(25), CByte(25), CByte(25))
+        lvChats.Columns.AddRange(New ColumnHeader() {ColumnHeader4, ColumnHeader5, ColumnHeader6})
+        lvChats.ForeColor = Color.White
+        lvChats.FullRowSelect = True
+        lvChats.HeaderStyle = ColumnHeaderStyle.Nonclickable
+        lvChats.Location = New Point(20, 38)
+        lvChats.MultiSelect = False
+        lvChats.Name = "lvChats"
+        lvChats.Size = New Size(227, 380)
+        lvChats.TabIndex = 1
+        lvChats.UseCompatibleStateImageBehavior = False
+        lvChats.View = View.Details
+        ' 
+        ' ColumnHeader4
+        ' 
+        ColumnHeader4.Text = "ID"
+        ColumnHeader4.Width = 1
+        ' 
+        ' ColumnHeader5
+        ' 
+        ColumnHeader5.Text = "Date"
+        ColumnHeader5.Width = 70
+        ' 
+        ' ColumnHeader6
+        ' 
+        ColumnHeader6.Text = "Title"
+        ColumnHeader6.Width = 160
+        ' 
+        ' Label22
+        ' 
+        Label22.AutoSize = True
+        Label22.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point)
+        Label22.Location = New Point(15, 10)
+        Label22.Name = "Label22"
+        Label22.Size = New Size(48, 20)
+        Label22.TabIndex = 0
+        Label22.Text = "Chats"
+        ' 
+        ' lblTitle
+        ' 
+        lblTitle.AutoSize = True
+        lblTitle.Font = New Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point)
+        lblTitle.Location = New Point(263, 45)
+        lblTitle.Name = "lblTitle"
+        lblTitle.Size = New Size(97, 25)
+        lblTitle.TabIndex = 17
+        lblTitle.Text = "New Chat"
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label6.Location = New Point(26, 27)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(42, 15)
+        Label6.TabIndex = 0
+        Label6.Text = "Model"
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label7.Location = New Point(26, 67)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(101, 15)
+        Label7.TabIndex = 1
+        Label7.Text = "Typing animation"
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label8.Location = New Point(26, 107)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(65, 15)
+        Label8.TabIndex = 2
+        Label8.Text = "Show ping"
+        ' 
+        ' cmbModel
+        ' 
+        cmbModel.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbModel.FlatStyle = FlatStyle.Flat
+        cmbModel.FormattingEnabled = True
+        cmbModel.Items.AddRange(New Object() {"LLaMa-2-70B-chat", "LLaMa-13B", "LLaMa-2-7B"})
+        cmbModel.Location = New Point(139, 24)
+        cmbModel.Name = "cmbModel"
+        cmbModel.Size = New Size(179, 23)
+        cmbModel.TabIndex = 3
+        ' 
+        ' cmbTypeAni
+        ' 
+        cmbTypeAni.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbTypeAni.FlatStyle = FlatStyle.Flat
+        cmbTypeAni.FormattingEnabled = True
+        cmbTypeAni.Items.AddRange(New Object() {"Enabled", "Disabled"})
+        cmbTypeAni.Location = New Point(139, 64)
+        cmbTypeAni.Name = "cmbTypeAni"
+        cmbTypeAni.Size = New Size(179, 23)
+        cmbTypeAni.TabIndex = 4
+        ' 
+        ' cmbShowP
+        ' 
+        cmbShowP.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbShowP.FlatStyle = FlatStyle.Flat
+        cmbShowP.FormattingEnabled = True
+        cmbShowP.Items.AddRange(New Object() {"Enabled", "Disabled"})
+        cmbShowP.Location = New Point(139, 104)
+        cmbShowP.Name = "cmbShowP"
+        cmbShowP.Size = New Size(179, 23)
+        cmbShowP.TabIndex = 5
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label13.Location = New Point(26, 152)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(98, 15)
+        Label13.TabIndex = 6
+        Label13.Text = "Window Opacity"
+        ' 
+        ' trackbarOpacity
+        ' 
+        trackbarOpacity.LargeChange = 10
+        trackbarOpacity.Location = New Point(130, 139)
+        trackbarOpacity.Maximum = 100
+        trackbarOpacity.Minimum = 30
+        trackbarOpacity.Name = "trackbarOpacity"
+        trackbarOpacity.Size = New Size(154, 45)
+        trackbarOpacity.TabIndex = 7
+        trackbarOpacity.TickStyle = TickStyle.Both
+        trackbarOpacity.Value = 100
+        ' 
+        ' lblOpac
+        ' 
+        lblOpac.AutoSize = True
+        lblOpac.Location = New Point(283, 152)
+        lblOpac.Name = "lblOpac"
+        lblOpac.Size = New Size(35, 15)
+        lblOpac.TabIndex = 9
+        lblOpac.Text = "100%"
+        lblOpac.TextAlign = ContentAlignment.TopRight
+        ' 
+        ' pnlSettings
+        ' 
+        pnlSettings.BorderStyle = BorderStyle.Fixed3D
+        pnlSettings.Controls.Add(lblOpac)
+        pnlSettings.Controls.Add(trackbarOpacity)
+        pnlSettings.Controls.Add(Label13)
+        pnlSettings.Controls.Add(cmbShowP)
+        pnlSettings.Controls.Add(cmbTypeAni)
+        pnlSettings.Controls.Add(cmbModel)
+        pnlSettings.Controls.Add(Label8)
+        pnlSettings.Controls.Add(Label7)
+        pnlSettings.Controls.Add(Label6)
+        pnlSettings.Location = New Point(293, 27)
+        pnlSettings.Name = "pnlSettings"
+        pnlSettings.Size = New Size(350, 204)
+        pnlSettings.TabIndex = 7
+        pnlSettings.Visible = False
+        ' 
+        ' pnlScrollableAbout
+        ' 
+        pnlScrollableAbout.Controls.Add(PictureBox2)
+        pnlScrollableAbout.Controls.Add(LinkLabel1)
+        pnlScrollableAbout.Controls.Add(Label18)
+        pnlScrollableAbout.Controls.Add(Label9)
+        pnlScrollableAbout.Controls.Add(Label15)
+        pnlScrollableAbout.Controls.Add(Label10)
+        pnlScrollableAbout.Controls.Add(Label11)
+        pnlScrollableAbout.Location = New Point(3, 2)
+        pnlScrollableAbout.Name = "pnlScrollableAbout"
+        pnlScrollableAbout.Size = New Size(335, 399)
+        pnlScrollableAbout.TabIndex = 16
+        ' 
+        ' PictureBox2
+        ' 
+        PictureBox2.Image = My.Resources.Resources.clrico
+        PictureBox2.Location = New Point(306, 369)
+        PictureBox2.Name = "PictureBox2"
+        PictureBox2.Size = New Size(25, 25)
+        PictureBox2.SizeMode = PictureBoxSizeMode.StretchImage
+        PictureBox2.TabIndex = 6
+        PictureBox2.TabStop = False
+        ' 
+        ' LinkLabel1
+        ' 
+        LinkLabel1.AutoSize = True
+        LinkLabel1.LinkColor = Color.White
+        LinkLabel1.Location = New Point(11, 358)
+        LinkLabel1.Name = "LinkLabel1"
+        LinkLabel1.Size = New Size(130, 30)
+        LinkLabel1.TabIndex = 5
+        LinkLabel1.TabStop = True
+        LinkLabel1.Text = "github.com/Psyiantist" & vbCrLf & "replit.com/@MattFawn"
+        ' 
+        ' Label18
+        ' 
+        Label18.AutoSize = True
+        Label18.Location = New Point(9, 227)
+        Label18.Name = "Label18"
+        Label18.Size = New Size(301, 45)
+        Label18.TabIndex = 4
+        Label18.Text = "Created with Microsoft Visual Studio 2022. Any forms of" & vbCrLf & "Illegal Copyright or Distribution of this product will" & vbCrLf & "violate the license. The Unlicensed. (2023)"
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label9.Location = New Point(12, 13)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(77, 15)
+        Label9.TabIndex = 0
+        Label9.Text = "App Creator:"
+        ' 
+        ' Label15
+        ' 
+        Label15.AutoSize = True
+        Label15.Font = New Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point)
+        Label15.Location = New Point(8, 180)
+        Label15.Name = "Label15"
+        Label15.Size = New Size(236, 15)
+        Label15.TabIndex = 3
+        Label15.Text = "Large Artificial Cognitive Ensemble (Lace)"
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Location = New Point(95, 13)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(154, 15)
+        Label10.TabIndex = 1
+        Label10.Text = " Matt Castaneda (Psyiantist)"
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(8, 71)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(322, 90)
+        Label11.TabIndex = 2
+        Label11.Text = resources.GetString("Label11.Text")
+        Label11.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' scrollAbout
+        ' 
+        scrollAbout.Dock = DockStyle.Right
+        scrollAbout.Location = New Point(341, 0)
+        scrollAbout.Maximum = 200
+        scrollAbout.Minimum = 2
+        scrollAbout.Name = "scrollAbout"
+        scrollAbout.Size = New Size(17, 213)
+        scrollAbout.TabIndex = 4
+        scrollAbout.Value = 2
+        ' 
+        ' pnlAbout
+        ' 
+        pnlAbout.BorderStyle = BorderStyle.Fixed3D
+        pnlAbout.Controls.Add(scrollAbout)
+        pnlAbout.Controls.Add(pnlScrollableAbout)
+        pnlAbout.Location = New Point(352, 27)
+        pnlAbout.Name = "pnlAbout"
+        pnlAbout.Size = New Size(362, 217)
+        pnlAbout.TabIndex = 8
+        pnlAbout.Visible = False
+        ' 
         ' frmMain
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(25), CByte(25), CByte(25))
-        ClientSize = New Size(800, 467)
+        ClientSize = New Size(1055, 467)
         Controls.Add(pnlExtra)
         Controls.Add(pnlWait)
         Controls.Add(Label14)
@@ -861,11 +942,13 @@ Partial Class frmMain
         Controls.Add(pnlSettings)
         Controls.Add(lblPing)
         Controls.Add(Label5)
+        Controls.Add(lblTitle)
         Controls.Add(Panel3)
-        Controls.Add(lvHistory)
         Controls.Add(Panel1)
         Controls.Add(Panel2)
         Controls.Add(GroupBox1)
+        Controls.Add(Panel4)
+        Controls.Add(lvHistory)
         ForeColor = Color.White
         FormBorderStyle = FormBorderStyle.None
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
@@ -880,17 +963,19 @@ Partial Class frmMain
         Panel2.PerformLayout()
         Panel3.ResumeLayout(False)
         Panel3.PerformLayout()
-        pnlSettings.ResumeLayout(False)
-        pnlSettings.PerformLayout()
-        CType(trackbarOpacity, ComponentModel.ISupportInitialize).EndInit()
-        pnlAbout.ResumeLayout(False)
-        pnlScrollableAbout.ResumeLayout(False)
-        pnlScrollableAbout.PerformLayout()
-        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
         pnlWait.ResumeLayout(False)
         pnlWait.PerformLayout()
         pnlExtra.ResumeLayout(False)
         pnlExtra.PerformLayout()
+        Panel4.ResumeLayout(False)
+        Panel4.PerformLayout()
+        CType(trackbarOpacity, ComponentModel.ISupportInitialize).EndInit()
+        pnlSettings.ResumeLayout(False)
+        pnlSettings.PerformLayout()
+        pnlScrollableAbout.ResumeLayout(False)
+        pnlScrollableAbout.PerformLayout()
+        CType(PictureBox2, ComponentModel.ISupportInitialize).EndInit()
+        pnlAbout.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -920,22 +1005,7 @@ Partial Class frmMain
     Friend WithEvents Label5 As Label
     Friend WithEvents lblPing As Label
     Friend WithEvents pinger As Timer
-    Friend WithEvents pnlSettings As Panel
-    Friend WithEvents cmbModel As ComboBox
-    Friend WithEvents Label8 As Label
-    Friend WithEvents Label7 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents cmbShowP As ComboBox
-    Friend WithEvents cmbTypeAni As ComboBox
-    Friend WithEvents pnlAbout As Panel
-    Friend WithEvents Label9 As Label
-    Friend WithEvents Label10 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents trackbarOpacity As TrackBar
-    Friend WithEvents Label13 As Label
-    Friend WithEvents lblOpac As Label
     Friend WithEvents Label14 As Label
-    Friend WithEvents Label15 As Label
     Friend WithEvents Label16 As Label
     Friend WithEvents txtboxResp As RichTextBox
     Friend WithEvents lblLoading As Label
@@ -959,9 +1029,32 @@ Partial Class frmMain
     Friend WithEvents Button3 As Button
     Friend WithEvents btnStreamline As Button
     Friend WithEvents btnCancel As Button
-    Friend WithEvents scrollAbout As VScrollBar
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents lvChats As ListView
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Button4 As Button
+    Friend WithEvents lblTitle As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents cmbModel As ComboBox
+    Friend WithEvents cmbTypeAni As ComboBox
+    Friend WithEvents cmbShowP As ComboBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents trackbarOpacity As TrackBar
+    Friend WithEvents lblOpac As Label
+    Friend WithEvents pnlSettings As Panel
     Friend WithEvents pnlScrollableAbout As Panel
-    Friend WithEvents Label18 As Label
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents scrollAbout As VScrollBar
+    Friend WithEvents pnlAbout As Panel
+    Friend WithEvents ColumnHeader4 As ColumnHeader
+    Friend WithEvents ColumnHeader5 As ColumnHeader
+    Friend WithEvents ColumnHeader6 As ColumnHeader
 End Class
