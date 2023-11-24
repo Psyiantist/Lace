@@ -33,12 +33,12 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.Psyiantist_Lace.Form1
+            Me.MainForm = Global.Psyiantist_Lace.frmLoad
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateSplashScreen()
-            Me.SplashScreen = Global.Psyiantist_Lace.frmLoad
+            Me.SplashScreen = Global.Psyiantist_Lace.frmMain
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

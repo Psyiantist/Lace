@@ -6,6 +6,7 @@ Imports System.Threading
 Imports System.Drawing.Imaging
 Imports System.Xml
 Imports System.IO
+Imports System.Text.RegularExpressions
 
 Public Class frmMain
 
@@ -163,7 +164,11 @@ Public Class frmMain
 
         Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
         If chatsElement Is Nothing Then
-            MessageBox.Show("Invalid XML structure. Unable to save messages.")
+            System.IO.File.Delete(filePath)
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+            xmlDoc.AppendChild(xmlDoc.CreateElement("Chats"))
+
+            xmlDoc.Save(filePath)
             Return
         End If
 
@@ -228,7 +233,11 @@ Public Class frmMain
 
         Dim chatsElement As XmlElement = xmlDoc.SelectSingleNode("Chats")
         If chatsElement Is Nothing Then
-            MessageBox.Show("Invalid XML structure. Unable to load messages.")
+            System.IO.File.Delete(filePath)
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", Nothing))
+            xmlDoc.AppendChild(xmlDoc.CreateElement("Chats"))
+
+            xmlDoc.Save(filePath)
             Return
         End If
 
@@ -312,8 +321,8 @@ Public Class frmMain
             Dim column1Content As String = item.SubItems(0).Text
             Dim column2Content As String = item.SubItems(1).Text
 
-            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content & """}, ")
-            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content & """}, ")
+            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content.Replace("""", "`") & """}, ")
+            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content.Replace("""", "`") & """}, ")
         Next
 
         jsonObj.Append("{""role"": ""user"", ""content"":  """ & txtboxMsg.Text & """}]")
@@ -418,6 +427,7 @@ Public Class frmMain
             Dim newItem2 As New ListViewItem("")
             newItem2.SubItems.Add(txtboxResp.Text)
             lvHistory.Items.Add(newItem2)
+            AskTitle()
 
         Catch ex As OperationCanceledException
             txtboxResp.Text = "Generation Cancelled."
@@ -428,7 +438,6 @@ Public Class frmMain
         txtboxMsg.Clear()
         btnCancel.Hide()
         SaveMessages()
-        AskTitle()
 
         onProcess = False
     End Sub
@@ -444,19 +453,38 @@ Public Class frmMain
         jsonObj.Append("[")
 
         For Each item As ListViewItem In lvHistory.Items
-            Dim column1Content As String = item.SubItems(0).Text.Trim
-            Dim column2Content As String = item.SubItems(1).Text.Trim
+            Dim column1Content As String = item.SubItems(0).Text
+            Dim column2Content As String = item.SubItems(1).Text
 
-            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content & """}, ")
-            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content & """}, ")
+            jsonObj.Append("{""role"": ""user"", ""content"": """ & column1Content.Replace("""", "'") & """}, ")
+            jsonObj.Append("{""role"": ""assistant"", ""content"": """ & column2Content.Replace("""", "'") & """}, ")
         Next
 
         jsonObj.Append("{""role"": ""user"", ""content"":  ""give a 3 word title for the conversation.""}]")
         Dim cleanedString As String = jsonObj.ToString.Replace(vbCrLf, "").Replace(vbCr, "").Replace(vbLf, "")
         lblTitle.Text = Await PostRequestAsync(url, cleanedString, cts.Token)
 
+        If lblTitle.Text.StartsWith("""") And lblTitle.Text.EndsWith("""") Then
+            lblTitle.Text.Replace("""", "")
+        End If
+
+        If lblTitle.Text.Split(" "c).Length > 3 Then
+            Dim matches As MatchCollection = Regex.Matches(lblTitle.Text, """([^""]*)""")
+
+            If matches.Count > 0 Then
+                Dim extractedWords As New List(Of String)
+
+                For Each match As Match In matches
+                    extractedWords.Add(match.Groups(1).Value)
+                Next
+
+                lblTitle.Text = String.Join(" ", extractedWords)
+            End If
+        End If
+
         UpdateChatTitle(selectedChat.ID, lblTitle.Text)
     End Sub
+
 
     Private Async Sub pinger_Tick(sender As Object, e As EventArgs) Handles pinger.Tick
         Dim pingTime As Long = Await CheckPing("https://kitsune--mattfawn.repl.co/")

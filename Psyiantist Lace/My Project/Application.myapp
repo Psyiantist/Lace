@@ -7,5 +7,5 @@
   <EnableVisualStyles>true</EnableVisualStyles>
   <AuthenticationMode>0</AuthenticationMode>
   <SaveMySettingsOnExit>true</SaveMySettingsOnExit>
-  <SplashScreen>frmLoad</SplashScreen>
+  <SplashScreen>frmMain</SplashScreen>
 </MyApplicationData>
